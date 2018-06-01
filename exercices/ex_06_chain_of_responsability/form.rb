@@ -7,7 +7,7 @@ class Form
     valid = true
     @inputs.each { |input|
       validator = Validator.new(input)
-      valid &= validator.send("#{input.type}?")
+      input.validators[input.type] = nil
       input.validators.each{ |validator_name, value|
       valid &= validator.send("#{validator_name}?")}
     }
