@@ -3,7 +3,7 @@ class Form
   def initialize(inputs)
     @inputs = inputs
   end
-  def isValid?
+  def is_valid?
     valid = true
     @inputs.each { |input|
       validator = Validator.new(input)
