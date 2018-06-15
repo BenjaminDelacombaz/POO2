@@ -1,0 +1,6 @@
+mkdir build
+javac -d build **/*.java -Xlint:unchecked
+pushd
+cd build
+jar cvf queue.jar **/*
+popd
