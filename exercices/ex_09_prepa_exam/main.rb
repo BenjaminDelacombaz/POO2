@@ -2,6 +2,7 @@ require_relative './validators/format_validator'
 require_relative './validators/patern_validator'
 require_relative './validators/number_parts_validator'
 require_relative './data_provider/provider'
+require_relative './models/error'
 #
 # Exercice Prépa Exam POO2
 #
@@ -19,18 +20,21 @@ students = provider.getStudents() unless !provider
 
 if students != nil
   # By default run all the checks
-  issues = []
+  errors = Error.new([])
 
   # check that each name part starts with a capital
   students.each do |student_parts|
-    issues << "#{student_parts.first} doesn't start with a capital" if !PaternValidator.new(student_parts.first).valid?
-    issues << "#{student_parts.last} doesn't start with a capital" if !PaternValidator.new(student_parts.last).valid?
+    validator = PaternValidator.new(student_parts.first)
+    errors.add(validator.message()) if !validator.valid?
+    validator = PaternValidator.new(student_parts.last)
+    errors.add(validator.message()) if !validator.valid?
   end
 
   # check that we don't have more the 2 parts
   students.each do |student_parts|
-    issues << "#{student_parts.join(' ')} has #{student_parts.size} parts, only 2 allowed" unless NumberPartsValidator.new(student_parts, 2).valid?
+    validator = NumberPartsValidator.new(student_parts, 2)
+    errors.add(validator.message()) unless validator.valid?
   end
 
-  puts issues
+  puts errors.show()
 end
