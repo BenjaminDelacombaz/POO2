@@ -20,7 +20,7 @@ if students != nil
   # By default run all the checks
   errors = []
 
-  # check that each name part starts with a capital
+  # check
   students.each do |student_parts|
     errors.push(Validator.check(student_parts))
   end
