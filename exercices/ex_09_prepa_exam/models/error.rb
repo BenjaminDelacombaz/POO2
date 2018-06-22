@@ -3,7 +3,7 @@ class Error
     @errors = errors
   end
 
-  def add(error)
+  def push(error)
     @errors.push(error)
   end
 
